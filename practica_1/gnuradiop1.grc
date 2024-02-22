@@ -142,7 +142,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [904, 276.0]
+    coordinate: [864, 292.0]
     rotation: 0
     state: true
 - name: epy_block_0
