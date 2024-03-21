@@ -33,6 +33,48 @@ options:
     state: enabled
 
 blocks:
+- name: Amp
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '10'
+    value: '5'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1456, 156.0]
+    rotation: 0
+    state: true
+- name: Freq
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: 1e3
+    stop: 100e3
+    value: 50e3
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1456, 276.0]
+    rotation: 0
+    state: true
 - name: Rb
   id: variable
   parameters:
@@ -49,7 +91,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '128'
+    value: '64'
   states:
     bus_sink: false
     bus_source: false
@@ -103,7 +145,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '[1]*Sps'
+    value: '[1,1,1,1]*Sps'
   states:
     bus_sink: false
     bus_source: false
@@ -174,26 +216,50 @@ blocks:
     coordinate: [1104, 372.0]
     rotation: 180
     state: true
-- name: analog_random_source_x_0
-  id: analog_random_source_x
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
   parameters:
     affinity: ''
     alias: ''
+    amp: Amp
     comment: ''
-    max: '2'
+    freq: Freq
     maxoutbuf: '0'
-    min: '0'
     minoutbuf: '0'
-    num_samps: '1000000'
-    repeat: 'True'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
     type: byte
+    waveform: analog.GR_COS_WAVE
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [14, 176]
+    coordinate: [48, 116.0]
     rotation: 0
     state: true
+- name: analog_sig_source_x_0_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: Amp
+    comment: ''
+    freq: Freq
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: byte
+    waveform: analog.GR_SIN_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [48, 252.0]
+    rotation: 0
+    state: disabled
 - name: blocks_add_const_vxx_0
   id: blocks_add_const_vxx
   parameters:
@@ -226,7 +292,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [256, 204.0]
+    coordinate: [288, 188.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0
@@ -318,7 +384,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1102, 213]
+    coordinate: [1120, 200.0]
     rotation: 0
     state: true
 - name: epy_block_0_0
@@ -348,7 +414,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1102, 285]
+    coordinate: [1144, 288.0]
     rotation: 0
     state: true
 - name: epy_block_0_1
@@ -1177,7 +1243,8 @@ blocks:
 connections:
 - [analog_const_source_x_0, '0', epy_block_0, '0']
 - [analog_const_source_x_0, '0', epy_block_0_0, '0']
-- [analog_random_source_x_0, '0', blocks_char_to_float_0, '0']
+- [analog_sig_source_x_0, '0', blocks_char_to_float_0, '0']
+- [analog_sig_source_x_0_0, '0', blocks_char_to_float_0, '0']
 - [blocks_add_const_vxx_0, '0', blocks_multiply_const_vxx_0_0, '0']
 - [blocks_char_to_float_0, '0', blocks_add_const_vxx_0, '0']
 - [blocks_multiply_const_vxx_0, '0', epy_block_0, '1']

@@ -80,7 +80,7 @@ class prac3a(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.h = h = np.array([1,1,1,1])
+        self.h = h = np.array([0,1,0,1,0,1,0,1])
         self.Sps = Sps = len(h)
         self.Rb = Rb = 32000
         self.samp_rate = samp_rate = Rb*Sps
@@ -244,7 +244,7 @@ class prac3a(gr.top_block, Qt.QWidget):
             self.Menu_grid_layout_1.setRowStretch(r, 1)
         for c in range(0, 1):
             self.Menu_grid_layout_1.setColumnStretch(c, 1)
-        self.interp_fir_filter_xxx_0 = filter.interp_fir_filter_fff(Sps, h)
+        self.interp_fir_filter_xxx_0 = filter.interp_fir_filter_fff(Sps*2, h)
         self.interp_fir_filter_xxx_0.declare_sample_delay(0)
         self.fft_vxx_0 = fft.fft_vfc(N, True, [1]*N, True, 1)
         self.epy_block_0 = epy_block_0.blk(N=N)

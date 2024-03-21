@@ -73,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: np.array([1,1,1,1])
+    value: np.array([0,1,0,1,0,1,0,1])
   states:
     bus_sink: false
     bus_source: false
@@ -223,7 +223,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [578, 644]
+    coordinate: [720, 644.0]
     rotation: 0
     state: true
 - name: blocks_file_source_0
@@ -281,7 +281,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [869, 639]
+    coordinate: [1136, 644.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0
@@ -378,7 +378,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [729, 646]
+    coordinate: [928, 644.0]
     rotation: 0
     state: true
 - name: fft_vxx_0
@@ -399,7 +399,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [377, 610]
+    coordinate: [456, 612.0]
     rotation: 0
     state: true
 - name: import_0
@@ -421,7 +421,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    interp: Sps
+    interp: Sps*2
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_delay: '0'
@@ -696,7 +696,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1069, 584]
+    coordinate: [1456, 580.0]
     rotation: 0
     state: true
 - name: virtual_sink_0_1
