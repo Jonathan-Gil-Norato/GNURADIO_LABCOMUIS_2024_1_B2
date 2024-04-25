@@ -216,6 +216,26 @@ blocks:
     coordinate: [1104, 372.0]
     rotation: 180
     state: true
+- name: analog_random_source_x_0
+  id: analog_random_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    max: '2'
+    maxoutbuf: '0'
+    min: '0'
+    minoutbuf: '0'
+    num_samps: '1000000'
+    repeat: 'True'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [72, 172.0]
+    rotation: 0
+    state: true
 - name: analog_sig_source_x_0
   id: analog_sig_source_x
   parameters:
@@ -237,7 +257,7 @@ blocks:
     bus_structure: null
     coordinate: [48, 116.0]
     rotation: 0
-    state: true
+    state: disabled
 - name: analog_sig_source_x_0_0
   id: analog_sig_source_x
   parameters:
@@ -1243,6 +1263,7 @@ blocks:
 connections:
 - [analog_const_source_x_0, '0', epy_block_0, '0']
 - [analog_const_source_x_0, '0', epy_block_0_0, '0']
+- [analog_random_source_x_0, '0', blocks_char_to_float_0, '0']
 - [analog_sig_source_x_0, '0', blocks_char_to_float_0, '0']
 - [analog_sig_source_x_0_0, '0', blocks_char_to_float_0, '0']
 - [blocks_add_const_vxx_0, '0', blocks_multiply_const_vxx_0_0, '0']

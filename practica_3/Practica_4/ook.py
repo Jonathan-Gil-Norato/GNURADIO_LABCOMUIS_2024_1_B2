@@ -27,6 +27,7 @@ from gnuradio.filter import firdes
 import sip
 from gnuradio import analog
 from gnuradio import blocks
+import numpy
 from gnuradio import filter
 from gnuradio import gr
 from gnuradio.fft import window
@@ -135,12 +136,6 @@ class ook(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 2):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self._Freq_range = Range(0, 100e3, 1e3, 50e3, 200)
-        self._Freq_win = RangeWidget(self._Freq_range, self.set_Freq, "'Freq'", "counter_slider", float, QtCore.Qt.Horizontal)
-        self.top_layout.addWidget(self._Freq_win)
-        self._Amp_range = Range(0, 10, 1, 5, 200)
-        self._Amp_win = RangeWidget(self._Amp_range, self.set_Amp, "'Amp'", "counter_slider", float, QtCore.Qt.Horizontal)
-        self.top_layout.addWidget(self._Amp_win)
         self.qtgui_time_sink_x_0_1_0_0 = qtgui.time_sink_c(
             16*Sps, #size
             samp_rate, #samp_rate
@@ -499,8 +494,14 @@ class ook(gr.top_block, Qt.QWidget):
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_ff(2*math.pi*fd/(Rb*Sps))
         self.blocks_char_to_float_0 = blocks.char_to_float(1, 1)
         self.blocks_add_const_vxx_0 = blocks.add_const_ff(-0.5)
-        self.analog_sig_source_x_0 = analog.sig_source_b(samp_rate, analog.GR_COS_WAVE, Freq, Amp, 0, 0)
+        self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 2, 1000000))), True)
         self.analog_const_source_x_0 = analog.sig_source_f(0, analog.GR_CONST_WAVE, 0, 0, 1)
+        self._Freq_range = Range(0, 100e3, 1e3, 50e3, 200)
+        self._Freq_win = RangeWidget(self._Freq_range, self.set_Freq, "'Freq'", "counter_slider", float, QtCore.Qt.Horizontal)
+        self.top_layout.addWidget(self._Freq_win)
+        self._Amp_range = Range(0, 10, 1, 5, 200)
+        self._Amp_win = RangeWidget(self._Amp_range, self.set_Amp, "'Amp'", "counter_slider", float, QtCore.Qt.Horizontal)
+        self.top_layout.addWidget(self._Amp_win)
 
 
         ##################################################
@@ -508,7 +509,7 @@ class ook(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.analog_const_source_x_0, 0), (self.epy_block_0, 0))
         self.connect((self.analog_const_source_x_0, 0), (self.epy_block_0_0, 0))
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_char_to_float_0, 0))
+        self.connect((self.analog_random_source_x_0, 0), (self.blocks_char_to_float_0, 0))
         self.connect((self.blocks_add_const_vxx_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))
         self.connect((self.blocks_char_to_float_0, 0), (self.blocks_add_const_vxx_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.epy_block_0, 1))
@@ -559,7 +560,6 @@ class ook(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.analog_sig_source_x_0.set_sampling_freq(self.samp_rate)
         self.epy_block_0.samp_rate = self.samp_rate
         self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
         self.qtgui_freq_sink_x_0_0.set_frequency_range(0, self.samp_rate)
@@ -593,14 +593,12 @@ class ook(gr.top_block, Qt.QWidget):
 
     def set_Freq(self, Freq):
         self.Freq = Freq
-        self.analog_sig_source_x_0.set_frequency(self.Freq)
 
     def get_Amp(self):
         return self.Amp
 
     def set_Amp(self, Amp):
         self.Amp = Amp
-        self.analog_sig_source_x_0.set_amplitude(self.Amp)
 
 
 
